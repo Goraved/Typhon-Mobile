@@ -80,7 +80,6 @@ class Utilities:
         f.write(f"BrowserStack {Utilities.get_browserstack_session_url()}\n")
         f.write(f"DEVICE {os.getenv('DEVICE')}\n")
         f.write(f"PLATFORM {os.getenv('PLATFORM')}\n")
-        f.write(f"BUILDBOT_URL {os.getenv('app_path')}\n")
         f.write(f"BROWSERSTACK_APP {os.getenv('app_url')}\n")
 
     @staticmethod
