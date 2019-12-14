@@ -1,0 +1,10 @@
+{
+  "name" : "Jenkins",
+  "type" : "Jenkins",
+  "url" : "http://example.org",
+  "buildOrder" : "None",
+  "buildName" : "Build None",
+  "buildUrl" : "None",
+  "reportName" : "Demo allure report",
+  "reportUrl" : "None/allure"
+}
