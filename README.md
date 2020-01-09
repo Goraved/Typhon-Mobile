@@ -49,23 +49,31 @@ brew install node || apt-get install nodejs # get node.js
 npm install -g appium # get appium
 npm install wd # get appium client
 ```
-Or use the desktop version - http://appium.io/
+Also the desktop version - https://github.com/appium/appium-desktop/releases
 
 ## Android
-[Install android sdk](https://developer.android.com/studio) 
-```bash
-brew tap caskroom/cask
-brew cask install android-sdk
-export ANDROID_HOME=/usr/local/share/android-sdk
+* Install JAVA
 ```
-[Create emulator](https://developer.android.com/studio/command-line/avdmanager)
+brew cask install java
+```
+* [Install android sdk](https://developer.android.com/studio) 
+* Set correct Android path [link](https://stackoverflow.com/questions/19986214/setting-android-home-enviromental-variable-on-mac-os-x):
+```
+nano ~/.bash_profile
+```
+```
+export ANDROID_HOME=/YOUR_PATH_TO/android-sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+```
+* RESTART MAC!
+* [Create emulator](https://developer.android.com/studio/command-line/avdmanager)
 ```bash
-sdkmanager "system-images;android-25;google_apis;x86"
+sdkmanager "system-images;android-28;google_apis;x86"
 avdmanager create avd -n test_emu -k "system-images;android-28;google_apis;x86" --device "pixel_xl"
 avdmanager list avd
 emulator -avd test_emu
 ```
-
 ## iOS
 It can be automated only on Mac. 
 ``` bash
@@ -82,6 +90,45 @@ Go to `scripts` dir. Execute the following script
 ```
 execute_tests.sh
 ``` 
+
+### Examples of capabilities
+Android
+```
+{
+  "platformName": "android",
+  "deviceName": "Pixel 2",
+  "app": "test.apk",
+  "autoGrantPermissions": true,
+  "appPackage": "com.test.test.QA",
+  "appActivity": "com.test.test.activities.TestLauncherActivity"
+}
+```
+iOS
+```
+{
+  "platformName": "iOS",
+  "platformVersion": "13.3",
+  "deviceName": "iPhone 7",
+  "app": "test.ipa",
+  "udid": "auto",
+  "xcodeOrgId": "123123",
+  "xcodeSigningId": "iPhone Developer",
+  "autoAcceptAlerts": false,
+  "noReset": true,
+  "automationName": "XCUITest",
+  "waitForQuiescence": false,
+  "useNewWDA": true
+}
+```
+### Required environment variables for the local run
+| KEY | VALUE | Desc |
+|---|---|---|
+|DEVICE|pixel_device| Key of devices from `mobile_framework/mobile/devices.py`|
+|app_path|test.apk;| ABS path to the application|
+|PLATFORM|android| `android` or `ios`|
+
+You can easily setup those variables using PyCharm: `Run/Debug Configurations -> Edit Configurations -> Templates -> Python tests -> pytest -> Environment -> Environment variables`
+
 
 ## ADVISES!
 1. Try to use [Appium Desktop](https://github.com/appium/appium-desktop/releases) cause it would be faster for you and you could easily setup correct desired capabilities;
